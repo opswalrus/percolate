@@ -1,6 +1,6 @@
 {
   "name": "@opswalrus/percolate",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "exports": {
     ".": "./src/index.ts",
     "./array": "./src/array.ts",
