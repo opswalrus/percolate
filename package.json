@@ -18,9 +18,14 @@
   },
   "homepage": "https://github.com/opswalrus/percolate#readme",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@release-it/bumper": "^6.0.1",
+    "@types/bun": "latest",
+    "release-it": "^17.3.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "release": "release-it"
   }
 }
