@@ -10,6 +10,20 @@ export function each<K, V>(eachFn: ([K, V]) => void) {
   };
 }
 
+/**
+ * This function adds the two passed numbers together.
+ * @returns An array of the map's keys.
+ *
+ * ```ts
+ * keys(
+ *   new Map([
+ *     ["foo", [1, 2, 3]],
+ *     ["bar", [4, 6, 7]],
+ *   ])
+ * )
+ * // [ 'foo', 'bar' ]
+ * ```
+ */
 export function keys<K, V>(map: Map<K, V>): K[] {
   return Array.from(map.keys());
 }
@@ -78,24 +92,32 @@ export class MapToArray<K, V, T> extends Mappable<Map<K, V>, [K, V], T> {
 Mappable.register(Map, MapToMap, true);
 Mappable.register(Map, MapToArray);
 
-export class AsyncMapToMap<K, V, T, U> extends AsyncMappable<Map<K, V>, [K, V], [T, U]> {
+export class AsyncMapToMap<K, V, T, U> extends AsyncMappable<
+  Map<K, V>,
+  [K, V],
+  [T, U]
+> {
   async map(mapFn: ([K, V]) => Promise<[T, U]>) {
     const m = new Map<T, U>();
     for await (const [key, value] of this.self) {
       const [newKey, newValue] = await mapFn([key, value]);
       m.set(newKey, newValue);
-    };
+    }
     return m;
   }
 }
 
-export class AsyncMapToArray<K, V, T> extends AsyncMappable<Map<K, V>, [K, V], T> {
+export class AsyncMapToArray<K, V, T> extends AsyncMappable<
+  Map<K, V>,
+  [K, V],
+  T
+> {
   async map(mapFn: ([K, V]) => Promise<T>) {
     const arr: T[] = [];
     for await (const [key, value] of this.self) {
       const mappedValue = await mapFn([key, value]);
       arr.push(mappedValue);
-    };
+    }
     return arr;
   }
 }
