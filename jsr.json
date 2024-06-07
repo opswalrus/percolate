@@ -1,0 +1,5 @@
+{
+  "name": "@opswalrus/percolate",
+  "version": "0.1.0",
+  "exports": "./mod.ts"
+}

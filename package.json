@@ -1,0 +1,26 @@
+{
+  "name": "percolate",
+  "version": "0.0.1",
+  "description": "A typescript implementation of protocols (typeclasses)",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opswalrus/percolate.git"
+  },
+  "keywords": [
+    "protocols",
+    "typeclasses"
+  ],
+  "author": "David Ellis",
+  "license": "EPL-2.0",
+  "bugs": {
+    "url": "https://github.com/opswalrus/percolate/issues"
+  },
+  "homepage": "https://github.com/opswalrus/percolate#readme",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
