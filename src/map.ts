@@ -11,7 +11,6 @@ export function each<K, V>(eachFn: ([K, V]) => void) {
 }
 
 /**
- * This function adds the two passed numbers together.
  * @returns An array of the map's keys.
  *
  * ```ts
