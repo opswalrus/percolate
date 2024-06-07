@@ -1,5 +1,19 @@
 {
   "name": "@opswalrus/percolate",
   "version": "0.1.0",
-  "exports": "./mod.ts"
+  "exports": {
+    ".": "./src/index.ts",
+    "./array": "./src/array.ts",
+    "./compactable": "./src/compactable.ts",
+    "./enumerable": "./src/enumerable.ts",
+    "./enumerator": "./src/enumerator.ts",
+    "./function": "./src/function.ts",
+    "./map": "./src/map.ts",
+    "./mappable": "./src/mappable.ts",
+    "./object": "./src/object.ts",
+    "./pipe": "./src/pipe.ts",
+    "./protocol": "./src/protocol.ts",
+    "./set": "./src/set.ts",
+    "./type": "./src/type.ts"
+  }
 }
