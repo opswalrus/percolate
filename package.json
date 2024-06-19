@@ -8,6 +8,8 @@
     "url": "git+https://github.com/opswalrus/percolate.git"
   },
   "keywords": [
+    "percolate",
+    "pipeline",
     "protocols",
     "typeclasses"
   ],
