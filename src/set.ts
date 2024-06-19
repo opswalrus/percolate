@@ -18,6 +18,10 @@ export function each<V>(eachFn: (value: V) => void) {
   };
 }
 
+export function isEmpty<V>(set: Set<V>): boolean {
+  return set.size === 0;
+}
+
 export function map<V, T>(mapFn: (value: V) => T) {
   return function (set: Set<V>): Set<T> {
     const s = new Set<T>();
@@ -33,18 +37,12 @@ export function toArray<V>(set: Set<V>): V[] {
   return Array.from(set.values());
 }
 
-// export const S = {
-//   addAll,
-//   each,
-//   map,
-//   toArray,
-// };
-
 export const S = buildPipeThroughFunction();
 
 Object.assign(S, {
   addAll,
   each,
+  isEmpty,
   map,
   toArray,
 });
