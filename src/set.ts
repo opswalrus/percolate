@@ -2,10 +2,10 @@ import { Enumerable } from "./enumerable";
 import { buildPipeThroughFunction } from "./function";
 import { Mappable } from "./mappable";
 
-export function addAll(emitObj) {
-  const emit = Enumerable.for(emitObj);
+export function addAll(enumerableObj) {
+  const enumerable = Enumerable.for(enumerableObj);
   return function <T>(set: Set<T>): Set<T> {
-    emit.each((item: T) => set.add(item));
+    enumerable.each((item: T) => set.add(item));
     return set;
   };
 }
@@ -46,9 +46,8 @@ Object.assign(S, {
   addAll,
   each,
   map,
-  toArray
+  toArray,
 });
-
 
 // protocols
 

@@ -2,6 +2,7 @@ import { Compactable } from "./compactable";
 import { Enumerable } from "./enumerable";
 import { buildPipeThroughFunction, identity } from "./function";
 import { Mappable } from "./mappable";
+import { Selectable } from "./selectable";
 
 export function compact(omit: any[] = [null, undefined]) {
   return function (arr: any[]): any {
@@ -43,7 +44,7 @@ export function first<T>(predicateFn: (v: T) => any) {
 
 export function join(separator?: string) {
   return function <T>(arr: T[]): string {
-    return arr.join(separator)
+    return arr.join(separator);
   };
 }
 
@@ -56,6 +57,12 @@ export function map<T, U>(mapFn: (value: T) => U) {
 export function nth(n: number) {
   return function <T>(arr: T[]): T | undefined {
     return arr[n];
+  };
+}
+
+export function select<T>(predFn: (e: T) => boolean) {
+  return function (arr: T[]): T[] {
+    return arr.filter(predFn);
   };
 }
 
@@ -98,10 +105,12 @@ Object.assign(A, {
   compact,
   concat,
   each,
+  filter: select,
   first,
   join,
   map,
   nth,
+  select,
   toSet,
   uniq,
   uniqBy,
@@ -141,3 +150,10 @@ class EnumerableArray<T> extends Enumerable<T[], T> {
   }
 }
 Enumerable.register(Array, EnumerableArray, true);
+
+class SelectableArray<T> extends Selectable<T[], T> {
+  select(predFn: (v: T) => boolean): T[] {
+    return this.self.filter(predFn)
+  }
+}
+Selectable.register(Array, SelectableArray, true)

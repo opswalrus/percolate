@@ -26,6 +26,7 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "release": "release-it"
+    "release": "release-it",
+    "test": "bun test"
   }
 }
