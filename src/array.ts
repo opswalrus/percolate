@@ -142,9 +142,6 @@ class MappableArray<T, U> extends Mappable<T[], T, U> {
 Mappable.register(Array, MappableArray, true);
 
 class EnumerableArray<T> extends Enumerable<T[], T> {
-  // each(visitorFn: (v: T) => any): any {
-  //   return this.self.forEach((v) => visitorFn(v));
-  // }
   *emit() {
     for (const e of this.self) yield e;
   }

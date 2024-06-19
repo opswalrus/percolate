@@ -66,7 +66,7 @@ export class Enumerator<T> implements IterableIterator<T> {
     return { done: false, value: val };
   }
 
-  // this produces either the next value in the emituence, or it returns End
+  // this produces either the next value in the Enumerator, or it returns End
   produce(): T | End {
     const val: IteratorResult<T> = this.iterator.next();
     if (val.done) {

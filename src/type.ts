@@ -1,3 +1,5 @@
+import { buildPipeThroughFunction } from "./function";
+
 export class End {
   private static _instance: End;
 
@@ -9,16 +11,27 @@ export class End {
     }
     return this._instance;
   }
-
 }
 export class Undefined {}
 export class Null {}
 export class Class {}
 
-export function is(predicateType) {
-  return function (value) {
+// export function is(predicateType) {
+//   return function (value) {
+//     return (
+//       value instanceof predicateType ||
+//       (value != null &&
+//         (value.constructor === predicateType ||
+//           (predicateType.name === "Object" && typeof value === "object")))
+//     );
+//   };
+// }
+
+export function isA(predicateType) {
+  return function (value): boolean {
     return (
       value instanceof predicateType ||
+      kind(value) === predicateType ||
       (value != null &&
         (value.constructor === predicateType ||
           (predicateType.name === "Object" && typeof value === "object")))
@@ -26,18 +39,7 @@ export function is(predicateType) {
   };
 }
 
-export function isA(value) {
-  return function (predicateType) {
-    return (
-      value instanceof predicateType ||
-      (value != null &&
-        (value.constructor === predicateType ||
-          (predicateType.name === "Object" && typeof value === "object")))
-    );
-  }
-}
-
-export function isClass(fn) {
+export function isClass(fn: any): boolean {
   return (
     typeof fn === "function" &&
     /^class\s/.test(Function.prototype.toString.call(fn))
@@ -77,3 +79,26 @@ export function kind(value) {
       break;
   }
 }
+
+// export const T = buildPipeThroughFunction();
+// Object.assign(T, {
+//   kind,
+// });
+
+
+
+class Value<T> {
+  constructor(public value: T) {}
+
+  isA(predicateType: any): boolean {
+    return isA(predicateType)(this.value);
+  }
+
+  kind() {
+    return kind(this.value);
+  }
+}
+
+export const V = function <T>(value: T): Value<T> {
+  return new Value(value);
+};
