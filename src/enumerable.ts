@@ -28,7 +28,7 @@ export class Enumerable<S, T> extends Protocol {
 }
 
 export function each<T>(visitorFn: (v: T) => any) {
-  return function (enumerableObj) {
-    return Enumerable.for(enumerableObj).each(visitorFn);
+  return function (enumerableObj, implClass?) {
+    return Enumerable.for(enumerableObj, implClass).each(visitorFn);
   };
 }

@@ -59,7 +59,6 @@ class MappableSet<T, U> extends Mappable<Set<T>, T, U> {
     return s;
   }
 }
-
 Mappable.register(Set, MappableSet, true);
 
 class EnumerableSet<T> extends Enumerable<Set<T>, T> {

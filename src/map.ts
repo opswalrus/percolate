@@ -139,9 +139,6 @@ AsyncMappable.register(Map, AsyncMapToMap, true);
 AsyncMappable.register(Map, AsyncMapToArray);
 
 class EnumerablePair<K, V> extends Enumerable<Map<K, V>, [K, V]> {
-  // each(visitorFn: ([K, V]) => any) {
-  //   return this.self.forEach((v, k) => visitorFn([k, v]));
-  // }
   *emit(): Generator<[K, V]> {
     for (const [k, v] of this.self.entries()) {
       yield [k, v];
@@ -150,9 +147,6 @@ class EnumerablePair<K, V> extends Enumerable<Map<K, V>, [K, V]> {
 }
 
 class EnumerableKey<K, V> extends Enumerable<Map<K, V>, K> {
-  // each(visitorFn: (K) => any) {
-  //   return this.self.forEach((v, k) => visitorFn(k));
-  // }
   *emit() {
     for (const k of this.self.keys()) {
       yield k;
@@ -161,9 +155,6 @@ class EnumerableKey<K, V> extends Enumerable<Map<K, V>, K> {
 }
 
 class EnumerableValue<K, V> extends Enumerable<Map<K, V>, V> {
-  // each(visitorFn: (V) => any): any {
-  //   return this.self.forEach((v, k) => visitorFn(v));
-  // }
   *emit() {
     for (const v of this.self.values()) {
       yield v;
