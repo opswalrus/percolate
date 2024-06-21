@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { Null, Undefined, V } from "./type";
+import { Class, Null, Undefined, V } from "./type";
 
 describe("V", () => {
   it("indicates whether a given value is of a particular type or inherits from a particular type", () => {
@@ -103,5 +103,22 @@ describe("V", () => {
     expect(V(fun).kind()).toEqual(Function);
     expect(V(map).kind()).toEqual(Map);
     expect(V(obj).kind()).toEqual(Object);
+  });
+
+  it("inspects an object", () => {
+    const map = new Map([
+      ["foo", [1, 2, 3]],
+      ["bar", [4, 6, 7]],
+    ]);
+    const obj = { foo: "bar" };
+
+    expect(V(Map).inspect()).toEqual(`[Function: Map]`);
+    expect(V(String).inspect()).toEqual(`[Function: String]`);
+    expect(V(Undefined).inspect()).toEqual(`[class Undefined]`);
+
+    expect(V(map).inspect()).toEqual(
+      `Map(2) { 'foo' => [ 1, 2, 3 ], 'bar' => [ 4, 6, 7 ] }`
+    );
+    expect(V(obj).inspect()).toEqual(`{ foo: 'bar' }`);
   });
 });

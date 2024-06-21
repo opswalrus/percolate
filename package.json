@@ -2,7 +2,6 @@
   "name": "@opswalrus/percolate",
   "version": "0.4.7",
   "description": "A typescript implementation of protocols (typeclasses)",
-  "main": "./src/index.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/opswalrus/percolate.git"
@@ -20,6 +19,7 @@
   },
   "homepage": "https://github.com/opswalrus/percolate#readme",
   "scripts": {
+    "build": "tsup",
     "release": "release-it",
     "test": "bun test"
   },
@@ -28,9 +28,95 @@
     "@types/bun": "latest",
     "@types/object-inspect": "^1.13.0",
     "release-it": "^17.3.0",
+    "tsup": "^8.1.0",
     "typescript": "latest"
   },
-  "dependencies": {
-    "object-inspect": "^1.13.1"
-  }
+  "tsup": {
+    "entry": [
+      "src/array.ts",
+      "src/compactable.ts",
+      "src/enumerable.ts",
+      "src/enumerator.ts",
+      "src/function.ts",
+      "src/index.ts",
+      "src/map.ts",
+      "src/mappable.ts",
+      "src/object.ts",
+      "src/pipe.ts",
+      "src/protocol.ts",
+      "src/selectable.ts",
+      "src/set.ts",
+      "src/type.ts"
+    ],
+    "splitting": false,
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "sourcemap": true,
+    "clean": true
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./array": {
+      "require": "./dist/array.js",
+      "import": "./dist/array.mjs"
+    },
+    "./compactable": {
+      "require": "./dist/compactable.js",
+      "import": "./dist/compactable.mjs"
+    },
+    "./enumerable": {
+      "require": "./dist/enumerable.js",
+      "import": "./dist/enumerable.mjs"
+    },
+    "./enumerator": {
+      "require": "./dist/enumerator.js",
+      "import": "./dist/enumerator.mjs"
+    },
+    "./function": {
+      "require": "./dist/function.js",
+      "import": "./dist/function.mjs"
+    },
+    "./map": {
+      "require": "./dist/map.js",
+      "import": "./dist/map.mjs"
+    },
+    "./mappable": {
+      "require": "./dist/mappable.js",
+      "import": "./dist/mappable.mjs"
+    },
+    "./object": {
+      "require": "./dist/object.js",
+      "import": "./dist/object.mjs"
+    },
+    "./pipe": {
+      "require": "./dist/pipe.js",
+      "import": "./dist/pipe.mjs"
+    },
+    "./protocol": {
+      "require": "./dist/protocol.js",
+      "import": "./dist/protocol.mjs"
+    },
+    "./selectable": {
+      "require": "./dist/selectable.js",
+      "import": "./dist/selectable.mjs"
+    },
+    "./set": {
+      "require": "./dist/set.js",
+      "import": "./dist/set.mjs"
+    },
+    "./type": {
+      "require": "./dist/type.js",
+      "import": "./dist/type.mjs"
+    }
+  },
+  "main": "./dist/index.js"
 }

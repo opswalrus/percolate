@@ -1,5 +1,4 @@
-import * as inspect from "object-inspect";
-import { buildPipeThroughFunction } from "./function";
+import { inspect as nodeInspect } from "node:util";
 
 export class End {
   private static _instance: End;
@@ -27,6 +26,12 @@ export class Class {}
 //     );
 //   };
 // }
+
+export function inspect(opts = {}) {
+  return function (valueToInspect: any) {
+    return nodeInspect(valueToInspect, opts);
+  };
+}
 
 export function isA(predicateType) {
   return function (value): boolean {
@@ -81,6 +86,14 @@ export function kind(value) {
   }
 }
 
+export function klass(objOrClass) {
+  return Object.getPrototypeOf(objOrClass).constructor;
+}
+
+export function superclass(objOrClass) {
+  return Object.getPrototypeOf(Object.getPrototypeOf(objOrClass)).constructor;
+}
+
 // export const T = buildPipeThroughFunction();
 // Object.assign(T, {
 //   kind,
@@ -93,15 +106,27 @@ class Value<T> {
     return isA(predicateType)(this.value);
   }
 
-  inspect(opts: inspect.Options = {}) {
-    return inspect(this.value, opts);
+  inspect(opts = {}) {
+    return inspect(opts)(this.value);
   }
 
   kind() {
     return kind(this.value);
+  }
+
+  klass() {
+    return klass(this.value);
+  }
+
+  superclass() {
+    return superclass(this.value);
   }
 }
 
 export const V = function <T>(value: T): Value<T> {
   return new Value(value);
 };
+
+Object.assign(V, {
+  inspect,
+});
