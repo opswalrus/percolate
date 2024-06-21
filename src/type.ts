@@ -1,3 +1,4 @@
+import * as inspect from "object-inspect";
 import { buildPipeThroughFunction } from "./function";
 
 export class End {
@@ -85,13 +86,15 @@ export function kind(value) {
 //   kind,
 // });
 
-
-
 class Value<T> {
   constructor(public value: T) {}
 
   isA(predicateType: any): boolean {
     return isA(predicateType)(this.value);
+  }
+
+  inspect(opts: inspect.Options = {}) {
+    return inspect(this.value, opts);
   }
 
   kind() {

@@ -2,8 +2,7 @@
   "name": "@opswalrus/percolate",
   "version": "0.4.6",
   "description": "A typescript implementation of protocols (typeclasses)",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./src/index.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/opswalrus/percolate.git"
@@ -20,9 +19,6 @@
     "url": "https://github.com/opswalrus/percolate/issues"
   },
   "homepage": "https://github.com/opswalrus/percolate#readme",
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "release": "release-it",
     "test": "bun test"
@@ -30,7 +26,11 @@
   "devDependencies": {
     "@release-it/bumper": "^6.0.1",
     "@types/bun": "latest",
+    "@types/object-inspect": "^1.13.0",
     "release-it": "^17.3.0",
     "typescript": "latest"
+  },
+  "dependencies": {
+    "object-inspect": "^1.13.1"
   }
 }

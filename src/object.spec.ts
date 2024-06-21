@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { O } from "./object";
+import { O, pick } from "./object";
 import { select } from "./selectable";
 
 describe("keys", () => {
@@ -33,6 +33,19 @@ describe("selectable", () => {
     };
 
     expect(select(([k, v]: [string, number[]]) => v.includes(2))(obj)).toEqual({
+      foo: [1, 2, 3],
+    });
+  });
+});
+
+describe("pick", () => {
+  it("returns a new object containing only the selected keys", () => {
+    const obj = {
+      foo: [1, 2, 3],
+      bar: [4, 6, 7],
+    };
+
+    expect(O(obj).pick(new Set(["foo", "baz"]))).toEqual({
       foo: [1, 2, 3],
     });
   });
