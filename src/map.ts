@@ -11,6 +11,10 @@ export function each<K, V>(eachFn: (pair: [K, V]) => void) {
   };
 }
 
+export function isEmpty<K, V>(map: Map<K, V>): boolean {
+  return map.size === 0;
+}
+
 /**
  * @returns An array of the map's keys.
  *
@@ -63,20 +67,13 @@ export const M = buildPipeThroughFunction();
 
 Object.assign(M, {
   each,
+  isEmpty,
   keys,
   map,
   select,
   toObject,
   values,
 });
-
-// export const M = {
-//   each,
-//   keys,
-//   map,
-//   toObject,
-//   values,
-// };
 
 // protocols
 

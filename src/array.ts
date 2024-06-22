@@ -1,7 +1,7 @@
 import { Compactable } from "./compactable";
 import { Enumerable } from "./enumerable";
 import { buildPipeThroughFunction, identity } from "./function";
-import { Mappable } from "./mappable";
+import { AsyncMappable, Mappable } from "./mappable";
 import { Selectable } from "./selectable";
 
 export function compact(omit: any[] = [null, undefined]) {
@@ -40,6 +40,10 @@ export function first<T>(predicateFn: (v: T) => any) {
     }
     return undefined;
   };
+}
+
+export function isEmpty<T>(arr: Array<T>): boolean {
+  return arr.length === 0;
 }
 
 export function join(separator?: string) {
@@ -107,6 +111,7 @@ Object.assign(A, {
   each,
   filter: select,
   first,
+  isEmpty,
   join,
   map,
   nth,
@@ -141,6 +146,18 @@ class MappableArray<T, U> extends Mappable<T[], T, U> {
 }
 Mappable.register(Array, MappableArray, true);
 
+export class AsyncMappableArray<T, U> extends AsyncMappable<T[], T, U> {
+  async map(mapFn: (v: T) => Promise<U>) {
+    const arr: U[] = [];
+    for await (const v of this.self) {
+      const mappedValue = await mapFn(v);
+      arr.push(mappedValue);
+    }
+    return arr;
+  }
+}
+AsyncMappable.register(Array, AsyncMappableArray, true);
+
 class EnumerableArray<T> extends Enumerable<T[], T> {
   *emit() {
     for (const e of this.self) yield e;
@@ -150,7 +167,7 @@ Enumerable.register(Array, EnumerableArray, true);
 
 class SelectableArray<T> extends Selectable<T[], T> {
   select(predFn: (v: T) => boolean): T[] {
-    return this.self.filter(predFn)
+    return this.self.filter(predFn);
   }
 }
-Selectable.register(Array, SelectableArray, true)
+Selectable.register(Array, SelectableArray, true);

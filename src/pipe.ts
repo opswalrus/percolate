@@ -7,6 +7,7 @@ import { asyncMap, map } from "./mappable";
 import { O } from "./object";
 import { select } from "./selectable";
 import { S } from "./set";
+import { V } from "./type";
 
 class Pipe {
   constructor(public value: any) {}
@@ -77,6 +78,11 @@ class Pipe {
   //   this.value = Enumerator.for(this.value);
   //   return this;
   // }
+
+  log() {
+    console.log(V.inspect(this.value));
+    return this;
+  }
 
   get M() {
     return M(this.value);
