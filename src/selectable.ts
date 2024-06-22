@@ -6,7 +6,7 @@ export class Selectable<S, T> extends Protocol {
   }
 
   select(predFn: (e: T) => boolean): any {
-    throw "not implemented";
+    throw new Error("not implemented");
   }
 }
 

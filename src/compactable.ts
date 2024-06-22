@@ -6,7 +6,7 @@ export class Compactable<S> extends Protocol {
   }
 
   compact(omit?: any[]): any {
-    throw "not implemented";
+    throw new Error("not implemented");
   }
 }
 

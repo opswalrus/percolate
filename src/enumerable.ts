@@ -1,10 +1,10 @@
 import { Protocol } from "./protocol";
 import { Enumerator } from "./enumerator";
 
-export type ImplementsEnumerable = {}
+export type ImplementsEnumerable = {};
 
 export class Enumerable<S, T> extends Protocol {
-  static each = each
+  static each = each;
 
   constructor(public self: S) {
     super();
@@ -15,11 +15,11 @@ export class Enumerable<S, T> extends Protocol {
   }
 
   *emit(): Generator<T> {
-    throw "emit not implemented";
+    throw new Error("emit not implemented");
   }
 
   toArray(): T[] {
-    return this.toEnumerator().toArray()
+    return this.toEnumerator().toArray();
   }
 
   toEnumerator(): Enumerator<T> {

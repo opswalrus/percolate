@@ -1,9 +1,10 @@
 import { A } from "./array";
 import { F } from "./function";
 import { M } from "./map";
+import { O } from "./object";
 import { P } from "./pipe";
 import { S } from "./set";
-import { isA, isClass } from "./type";
+import { V, isA, isClass } from "./type";
 
 export const Perc = {
   a: A,
@@ -11,6 +12,8 @@ export const Perc = {
   isA,
   isClass,
   m: M,
+  o: O,
   pipe: P,
   s: S,
+  v: V
 };

@@ -6,7 +6,7 @@ export class Mappable<S, T, U> extends Protocol {
   }
 
   map(mapFn: (v: T) => U): any {
-    throw "not implemented";
+    throw new Error("not implemented");
   }
 }
 
@@ -22,7 +22,7 @@ export class AsyncMappable<S, T, U> extends Protocol {
   }
 
   async map(mapFn: (v: T) => Promise<U>): Promise<any> {
-    throw "not implemented";
+    throw new Error("not implemented");
   }
 }
 

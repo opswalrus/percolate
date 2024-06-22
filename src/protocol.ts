@@ -45,7 +45,11 @@ class ImplementationRegistry {
 
   constructor(public name: string) {}
 
-  register(classConstructor: Function, implClass, makeDefault: boolean = false) {
+  register(
+    classConstructor: Function,
+    implClass,
+    makeDefault: boolean = false
+  ) {
     let protocolImplGroup = this.implementations.get(classConstructor);
     if (!protocolImplGroup) {
       protocolImplGroup = new NamedImplementations();
@@ -63,13 +67,17 @@ class ImplementationRegistry {
   get(classConstructor, name?: string) {
     const protocolImplGroup = this.implementations.get(classConstructor);
     if (!protocolImplGroup) {
-      throw `Protocol ${this.name} not implemented by ${classConstructor}`;
+      throw new Error(
+        `Protocol ${this.name} not implemented by ${classConstructor}`
+      );
     }
     const impl = protocolImplGroup.get(name);
     if (!impl) {
-      throw `Named implementation '${
-        name || protocolImplGroup.defaultImpl
-      }' of protocol ${this.name} not implemented by ${classConstructor}`;
+      throw new Error(
+        `Named implementation '${
+          name || protocolImplGroup.defaultImpl
+        }' of protocol ${this.name} not implemented by ${classConstructor}`
+      );
     }
     return impl;
   }
@@ -90,7 +98,11 @@ export class Protocol {
     }
   }
 
-  static register(classConstructor: Function, implClass, makeDefault: boolean = false) {
+  static register(
+    classConstructor: Function,
+    implClass,
+    makeDefault: boolean = false
+  ) {
     let typeclass = this.getTypeclass();
     typeclass.register(classConstructor, implClass, makeDefault);
   }
@@ -110,39 +122,17 @@ export class Protocol {
   // returns an instance of the class that implements the typeclass
   // For example, Enumerable.for([1,2,3]) returns a new instance of the EnumerableArray implementation of the
   // Enumerable typeclass on the Array type, initialized with [1,2,3] in the constructor
-  static for<S extends Protocol>(instance, implClass: S & {name: string} | undefined = undefined) {
-    const typeclassImplementationClassConstructor = this.get(kind(instance), implClass?.name) as unknown as (new (self: any) => any);
+  static for<S extends Protocol>(
+    instance,
+    implClass: (S & { name: string }) | undefined = undefined
+  ) {
+    const typeclassImplementationClassConstructor = this.get(
+      kind(instance),
+      implClass?.name
+    ) as unknown as new (self: any) => any;
     return new typeclassImplementationClassConstructor(instance);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // TC is the class that represents the typeclass, e.g. Mappable
 // class NamedImplementations<TC extends Protocol> {
@@ -293,7 +283,6 @@ export class Protocol {
 //     return impl;
 //   }
 // }
-
 
 // // Every implementation of the protocol must conform to the same interface.
 // // The interface defines which methods a user of the protocol implementation may invoke.

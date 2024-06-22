@@ -27,10 +27,8 @@ export class Class {}
 //   };
 // }
 
-export function inspect(opts = {}) {
-  return function (valueToInspect: any) {
-    return nodeInspect(valueToInspect, opts);
-  };
+export function inspect(valueToInspect: any) {
+  return nodeInspect(valueToInspect);
 }
 
 export function isA(predicateType) {
@@ -106,8 +104,8 @@ class Value<T> {
     return isA(predicateType)(this.value);
   }
 
-  inspect(opts = {}) {
-    return inspect(opts)(this.value);
+  inspect() {
+    return inspect(this.value);
   }
 
   kind() {

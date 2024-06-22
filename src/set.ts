@@ -1,6 +1,7 @@
 import { Enumerable } from "./enumerable";
 import { buildPipeThroughFunction } from "./function";
 import { Mappable } from "./mappable";
+import { Perc } from "./index";
 
 export function addAll(enumerableObj) {
   const enumerable = Enumerable.for(enumerableObj);
