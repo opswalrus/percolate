@@ -1,8 +1,10 @@
 import { Enumerable } from "./enumerable";
 import { buildPipeThroughFunction } from "./function";
 import { Mappable } from "./mappable";
+import { V } from "./type";
 
 export function addAll(enumerableObj) {
+  // console.log(`------------- addAll: ${V(enumerableObj).inspect()}`)
   const enumerable = Enumerable.for(enumerableObj);
   return function <T>(set: Set<T>): Set<T> {
     enumerable.each((item: T) => set.add(item));
@@ -59,7 +61,7 @@ class MappableSet<T, U> extends Mappable<Set<T>, T, U> {
     return s;
   }
 }
-Mappable.register(Set, MappableSet, true);
+await Mappable.register(Set, MappableSet, true);
 
 class EnumerableSet<T> extends Enumerable<Set<T>, T> {
   // each(visitorFn: (v: T) => any): any {
@@ -71,4 +73,4 @@ class EnumerableSet<T> extends Enumerable<Set<T>, T> {
     }
   }
 }
-Enumerable.register(Set, EnumerableSet, true);
+await Enumerable.register(Set, EnumerableSet, true);

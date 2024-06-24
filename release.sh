@@ -4,3 +4,4 @@ npm run build
 npm run release -- --ci
 jsr publish --allow-slow-types
 npm publish --access public
+npm publish --access public

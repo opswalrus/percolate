@@ -137,14 +137,14 @@ class CompactableArray<T> extends Compactable<T[]> {
     return newArr;
   }
 }
-Compactable.register(Array, CompactableArray, true);
+await Compactable.register(Array, CompactableArray, true);
 
 class MappableArray<T, U> extends Mappable<T[], T, U> {
   map(mapFn: (v: T) => U): any {
     return this.self.map(mapFn);
   }
 }
-Mappable.register(Array, MappableArray, true);
+await Mappable.register(Array, MappableArray, true);
 
 export class AsyncMappableArray<T, U> extends AsyncMappable<T[], T, U> {
   async map(mapFn: (v: T) => Promise<U>) {
@@ -156,18 +156,22 @@ export class AsyncMappableArray<T, U> extends AsyncMappable<T[], T, U> {
     return arr;
   }
 }
-AsyncMappable.register(Array, AsyncMappableArray, true);
+await AsyncMappable.register(Array, AsyncMappableArray, true);
 
 class EnumerableArray<T> extends Enumerable<T[], T> {
   *emit() {
     for (const e of this.self) yield e;
   }
 }
-Enumerable.register(Array, EnumerableArray, true);
+// console.log(
+//   `1111111111111111111111111111111111111111111111111111111111111 register Enumerable.register(${Array}, ${EnumerableArray}`
+// );
+await Enumerable.register(Array, EnumerableArray, true);
+// console.log(`222222222222222222222222222222222222222222222222222222 found: Enumerable.for(Array): ${Enumerable.for([])}`)
 
 class SelectableArray<T> extends Selectable<T[], T> {
   select(predFn: (v: T) => boolean): T[] {
     return this.self.filter(predFn);
   }
 }
-Selectable.register(Array, SelectableArray, true);
+await Selectable.register(Array, SelectableArray, true);

@@ -16,19 +16,8 @@ export class Undefined {}
 export class Null {}
 export class Class {}
 
-// export function is(predicateType) {
-//   return function (value) {
-//     return (
-//       value instanceof predicateType ||
-//       (value != null &&
-//         (value.constructor === predicateType ||
-//           (predicateType.name === "Object" && typeof value === "object")))
-//     );
-//   };
-// }
-
 export function inspect(valueToInspect: any) {
-  return nodeInspect(valueToInspect);
+  return nodeInspect(valueToInspect, { showProxy: true });
 }
 
 export function isA(predicateType) {

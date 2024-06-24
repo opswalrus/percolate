@@ -70,4 +70,4 @@ class SelectableObject<V> extends Selectable<object, [string, V]> {
     return O(this.self).select(predFn);
   }
 }
-Selectable.register(Object, SelectableObject, true);
+await Selectable.register(Object, SelectableObject, true);

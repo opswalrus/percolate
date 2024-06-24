@@ -37,6 +37,7 @@
       "src/compactable.ts",
       "src/enumerable.ts",
       "src/enumerator.ts",
+      "src/file.ts",
       "src/function.ts",
       "src/index.ts",
       "src/map.ts",
@@ -50,7 +51,6 @@
     ],
     "splitting": false,
     "format": [
-      "cjs",
       "esm"
     ],
     "sourcemap": true,
@@ -62,61 +62,53 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
     "./array": {
-      "require": "./dist/array.js",
       "import": "./dist/array.mjs"
     },
     "./compactable": {
-      "require": "./dist/compactable.js",
       "import": "./dist/compactable.mjs"
     },
     "./enumerable": {
-      "require": "./dist/enumerable.js",
       "import": "./dist/enumerable.mjs"
     },
     "./enumerator": {
-      "require": "./dist/enumerator.js",
       "import": "./dist/enumerator.mjs"
     },
+    "./file": {
+      "import": "./dist/file.mjs"
+    },
     "./function": {
-      "require": "./dist/function.js",
       "import": "./dist/function.mjs"
     },
     "./map": {
-      "require": "./dist/map.js",
       "import": "./dist/map.mjs"
     },
     "./mappable": {
-      "require": "./dist/mappable.js",
       "import": "./dist/mappable.mjs"
     },
     "./object": {
-      "require": "./dist/object.js",
       "import": "./dist/object.mjs"
     },
     "./pipe": {
-      "require": "./dist/pipe.js",
       "import": "./dist/pipe.mjs"
     },
     "./protocol": {
-      "require": "./dist/protocol.js",
       "import": "./dist/protocol.mjs"
     },
     "./selectable": {
-      "require": "./dist/selectable.js",
       "import": "./dist/selectable.mjs"
     },
     "./set": {
-      "require": "./dist/set.js",
       "import": "./dist/set.mjs"
     },
     "./type": {
-      "require": "./dist/type.js",
       "import": "./dist/type.mjs"
     }
   },
-  "main": "./dist/index.js"
+  "main": "./dist/index.js",
+  "dependencies": {
+    "async-mutex": "^0.5.0"
+  }
 }

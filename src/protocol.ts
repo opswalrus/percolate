@@ -1,3 +1,11 @@
+import {
+  Mutex,
+  MutexInterface,
+  Semaphore,
+  SemaphoreInterface,
+  withTimeout,
+} from "async-mutex";
+
 import { V, kind } from "./type";
 
 // This represents a set of implementations of the same protocol for the same type.
@@ -83,33 +91,56 @@ class ImplementationRegistry {
   }
 }
 
+declare global {
+  var protocolRegistry: Map<string, ImplementationRegistry>;
+  var protocolRegistryLock: Mutex;
+}
+global.protocolRegistryLock = global.protocolRegistryLock || new Mutex();
+await global.protocolRegistryLock.runExclusive(async () => {
+  global.protocolRegistry = global.protocolRegistry || new Map();
+});
+
 // Every implementation of the protocol must conform to the same interface.
 // The interface defines which methods a user of the protocol implementation may invoke.
 export class Protocol {
-  private static registry: Map<string, ImplementationRegistry> = new Map();
+  // private static registry: Map<string, ImplementationRegistry> = new Map();
+
+  // static getTypeclass(): ImplementationRegistry {
+  //   if (this.registry.has(this.name)) {
+  //     return this.registry.get(this.name) as ImplementationRegistry;
+  //   } else {
+  //     const newTypeclass = new ImplementationRegistry(this.name);
+  //     this.registry.set(this.name, newTypeclass);
+  //     return newTypeclass;
+  //   }
+  // }
 
   static getTypeclass(): ImplementationRegistry {
-    if (this.registry.has(this.name)) {
-      return this.registry.get(this.name) as ImplementationRegistry;
+    if (global.protocolRegistry.has(this.name)) {
+      return global.protocolRegistry.get(this.name) as ImplementationRegistry;
     } else {
       const newTypeclass = new ImplementationRegistry(this.name);
-      this.registry.set(this.name, newTypeclass);
+      global.protocolRegistry.set(this.name, newTypeclass);
       return newTypeclass;
     }
   }
 
-  static register(
+  static async register(
     classConstructor: Function,
     implClass,
     makeDefault: boolean = false
   ) {
-    let typeclass = this.getTypeclass();
-    typeclass.register(classConstructor, implClass, makeDefault);
+    await global.protocolRegistryLock.runExclusive(async () => {
+      let typeclass = this.getTypeclass();
+      typeclass.register(classConstructor, implClass, makeDefault);
+    });
   }
 
-  static use(classConstructor, implClass) {
-    let typeclass = this.getTypeclass();
-    typeclass.use(classConstructor, implClass);
+  static async use(classConstructor, implClass) {
+    await global.protocolRegistryLock.runExclusive(async () => {
+      let typeclass = this.getTypeclass();
+      typeclass.use(classConstructor, implClass);
+    });
   }
 
   // returns a class object that implements the typeclass - this is an implementation of the typeclass for a given type

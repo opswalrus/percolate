@@ -7,6 +7,7 @@
     "./compactable": "./src/compactable.ts",
     "./enumerable": "./src/enumerable.ts",
     "./enumerator": "./src/enumerator.ts",
+    "./file": ".src/file.ts",
     "./function": "./src/function.ts",
     "./map": "./src/map.ts",
     "./mappable": "./src/mappable.ts",

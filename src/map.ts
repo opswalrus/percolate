@@ -99,8 +99,8 @@ export class MapToArray<K, V, T> extends Mappable<Map<K, V>, [K, V], T> {
   }
 }
 
-Mappable.register(Map, MapToMap, true);
-Mappable.register(Map, MapToArray);
+await Mappable.register(Map, MapToMap, true);
+await Mappable.register(Map, MapToArray);
 
 export class AsyncMapToMap<K, V, T, U> extends AsyncMappable<
   Map<K, V>,
@@ -132,8 +132,8 @@ export class AsyncMapToArray<K, V, T> extends AsyncMappable<
   }
 }
 
-AsyncMappable.register(Map, AsyncMapToMap, true);
-AsyncMappable.register(Map, AsyncMapToArray);
+await AsyncMappable.register(Map, AsyncMapToMap, true);
+await AsyncMappable.register(Map, AsyncMapToArray);
 
 class EnumerablePair<K, V> extends Enumerable<Map<K, V>, [K, V]> {
   *emit(): Generator<[K, V]> {
@@ -159,13 +159,13 @@ class EnumerableValue<K, V> extends Enumerable<Map<K, V>, V> {
   }
 }
 
-Enumerable.register(Map, EnumerablePair, true);
-Enumerable.register(Map, EnumerableKey);
-Enumerable.register(Map, EnumerableValue);
+await Enumerable.register(Map, EnumerablePair, true);
+await Enumerable.register(Map, EnumerableKey);
+await Enumerable.register(Map, EnumerableValue);
 
 export class SelectableMap<K, V> extends Selectable<Map<K, V>, [K, V]> {
   select(predFn: (v: [K, V]) => boolean): Map<K, V> {
     return M(this.self).select(predFn);
   }
 }
-Selectable.register(Map, SelectableMap, true);
+await Selectable.register(Map, SelectableMap, true);
