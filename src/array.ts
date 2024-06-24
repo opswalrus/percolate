@@ -91,6 +91,19 @@ export function uniqBy<T, U>(comparisonValueFn: (value: T) => U) {
   };
 }
 
+export function zip<T, U>(other: Array<U>) {
+  return function (arr: Array<T>): Array<[T, U]> {
+    var len = Math.min(arr.length, other.length);
+    var result = Array(len);
+    var idx = 0;
+    while (idx < len) {
+      result[idx] = [arr[idx], other[idx]];
+      idx += 1;
+    }
+    return result;
+  };
+}
+
 // export const A = {
 //   compact,
 //   concat,
@@ -119,6 +132,7 @@ Object.assign(A, {
   toSet,
   uniq,
   uniqBy,
+  zip,
 });
 
 // protocols
