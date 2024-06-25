@@ -93,6 +93,10 @@ class Value<T> {
     return isA(predicateType)(this.value);
   }
 
+  isError(value: unknown): value is Error {
+    return isError(value);
+  }
+
   inspect() {
     return inspect(this.value);
   }
@@ -115,5 +119,9 @@ export const V = function <T>(value: T): Value<T> {
 };
 
 Object.assign(V, {
+  isA,
   inspect,
+  kind,
+  klass,
+  superclass,
 });

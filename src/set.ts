@@ -1,11 +1,9 @@
 import { Enumerable } from "./enumerable";
 import { buildPipeThroughFunction } from "./function";
-import { Mappable } from "./mappable";
-import { V } from "./type";
 
-export function addAll(enumerableObj) {
-  // console.log(`------------- addAll: ${V(enumerableObj).inspect()}`)
-  const enumerable = Enumerable.for(enumerableObj);
+export function addAll(enumerableVal) {
+  // console.log(`------------- addAll: ${V(enumerableVal).inspect()}`)
+  const enumerable = Enumerable.for(enumerableVal);
   return function <T>(set: Set<T>): Set<T> {
     enumerable.each((item: T) => set.add(item));
     return set;
@@ -20,8 +18,29 @@ export function each<V>(eachFn: (value: V) => void) {
   };
 }
 
+export function intersection(enumerableVal) {
+  const enumerable = Enumerable.for(enumerableVal);
+  return function <T>(set: Set<T>): Set<T> {
+    return set.intersection(enumerable.toSet());
+  };
+}
+
 export function isEmpty<V>(set: Set<V>): boolean {
   return set.size === 0;
+}
+
+export function isSubsetOf(enumerableSuperset) {
+  const enumerable = Enumerable.for(enumerableSuperset);
+  return function <T>(set: Set<T>): Set<T> {
+    return set.isSubsetOf(enumerable.toSet());
+  };
+}
+
+export function isSupersetOf(enumerableSubset) {
+  const enumerable = Enumerable.for(enumerableSubset);
+  return function <T>(set: Set<T>): Set<T> {
+    return set.isSupersetOf(enumerable.toSet());
+  };
 }
 
 export function map<V, T>(mapFn: (value: V) => T) {
@@ -39,38 +58,25 @@ export function toArray<V>(set: Set<V>): V[] {
   return Array.from(set.values());
 }
 
+export function union(enumerableVal) {
+  const enumerable = Enumerable.for(enumerableVal);
+  return function <T>(set: Set<T>): Set<T> {
+    return set.union(enumerable.toSet());
+  };
+}
+
 export const S = buildPipeThroughFunction();
 
 Object.assign(S, {
   addAll,
   each,
+  intersection,
   isEmpty,
+  isSubsetOf,
+  isSupersetOf,
   map,
   toArray,
+  union,
 });
 
-// protocols
-
-class MappableSet<T, U> extends Mappable<Set<T>, T, U> {
-  map(mapFn: (v: T) => U) {
-    const s = new Set<U>();
-    this.self.forEach((value) => {
-      const newValue = mapFn(value);
-      s.add(newValue);
-    });
-    return s;
-  }
-}
-await Mappable.register(Set, MappableSet, true);
-
-class EnumerableSet<T> extends Enumerable<Set<T>, T> {
-  // each(visitorFn: (v: T) => any): any {
-  //   return this.self.forEach((v) => visitorFn(v));
-  // }
-  *emit() {
-    for (const e of this.self) {
-      yield e;
-    }
-  }
-}
-await Enumerable.register(Set, EnumerableSet, true);
+import "./all-protocols"

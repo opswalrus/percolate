@@ -1,10 +1,4 @@
-import {
-  Mutex,
-  MutexInterface,
-  Semaphore,
-  SemaphoreInterface,
-  withTimeout,
-} from "async-mutex";
+import { Mutex } from "async-mutex";
 
 import { V, kind } from "./type";
 
@@ -91,53 +85,60 @@ class ImplementationRegistry {
   }
 }
 
-declare global {
-  var protocolRegistry: Map<string, ImplementationRegistry>;
-  var protocolRegistryLock: Mutex;
-}
-global.protocolRegistryLock = global.protocolRegistryLock || new Mutex();
-await global.protocolRegistryLock.runExclusive(async () => {
-  global.protocolRegistry = global.protocolRegistry || new Map();
-});
+// declare global {
+//   var protocolRegistry: Map<string, ImplementationRegistry>;
+//   var protocolRegistryLock: Mutex;
+// }
+// global.protocolRegistryLock = global.protocolRegistryLock || new Mutex();
+// await global.protocolRegistryLock.runExclusive(async () => {
+//   global.protocolRegistry = global.protocolRegistry || new Map();
+// });
 
 // Every implementation of the protocol must conform to the same interface.
 // The interface defines which methods a user of the protocol implementation may invoke.
 export class Protocol {
-  // private static registry: Map<string, ImplementationRegistry> = new Map();
+  static protocolRegistryLock: Mutex;
+  static registry: Map<string, ImplementationRegistry>;
 
-  // static getTypeclass(): ImplementationRegistry {
-  //   if (this.registry.has(this.name)) {
-  //     return this.registry.get(this.name) as ImplementationRegistry;
-  //   } else {
-  //     const newTypeclass = new ImplementationRegistry(this.name);
-  //     this.registry.set(this.name, newTypeclass);
-  //     return newTypeclass;
-  //   }
-  // }
+  static {
+    Protocol.protocolRegistryLock =
+      Protocol.protocolRegistryLock || new Mutex();
+    Protocol.registry = Protocol.registry || new Map();
+  }
 
   static getTypeclass(): ImplementationRegistry {
-    if (global.protocolRegistry.has(this.name)) {
-      return global.protocolRegistry.get(this.name) as ImplementationRegistry;
+    if (this.registry.has(this.name)) {
+      return this.registry.get(this.name) as ImplementationRegistry;
     } else {
       const newTypeclass = new ImplementationRegistry(this.name);
-      global.protocolRegistry.set(this.name, newTypeclass);
+      this.registry.set(this.name, newTypeclass);
       return newTypeclass;
     }
   }
+
+  // static getTypeclass(): ImplementationRegistry {
+  //   if (global.protocolRegistry.has(this.name)) {
+  //     return global.protocolRegistry.get(this.name) as ImplementationRegistry;
+  //   } else {
+  //     const newTypeclass = new ImplementationRegistry(this.name);
+  //     global.protocolRegistry.set(this.name, newTypeclass);
+  //     return newTypeclass;
+  //   }
+  // }
 
   static async register(
     classConstructor: Function,
     implClass,
     makeDefault: boolean = false
   ) {
-    await global.protocolRegistryLock.runExclusive(async () => {
+    await Protocol.protocolRegistryLock.runExclusive(async () => {
       let typeclass = this.getTypeclass();
       typeclass.register(classConstructor, implClass, makeDefault);
     });
   }
 
   static async use(classConstructor, implClass) {
-    await global.protocolRegistryLock.runExclusive(async () => {
+    await Protocol.protocolRegistryLock.runExclusive(async () => {
       let typeclass = this.getTypeclass();
       typeclass.use(classConstructor, implClass);
     });

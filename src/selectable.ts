@@ -11,7 +11,7 @@ export class Selectable<S, T> extends Protocol {
 }
 
 export function select<T>(predFn: (e: T) => boolean) {
-  return function (selectableObj, implClass?) {
-    return Selectable.for(selectableObj, implClass).select(predFn);
+  return function (selectableVal, implClass?) {
+    return Selectable.for(selectableVal, implClass).select(predFn);
   };
 }

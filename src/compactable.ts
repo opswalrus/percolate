@@ -11,7 +11,7 @@ export class Compactable<S> extends Protocol {
 }
 
 export function compact(omit?: any[]) {
-  return function (compactableObj) {
-    return Compactable.for(compactableObj).compact(omit);
+  return function (compactableVal) {
+    return Compactable.for(compactableVal).compact(omit);
   };
 }

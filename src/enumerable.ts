@@ -25,10 +25,14 @@ export class Enumerable<S, T> extends Protocol {
   toEnumerator(): Enumerator<T> {
     return Enumerator.for(this.emit());
   }
+
+  toSet(): Set<T> {
+    return this.toEnumerator().toSet();
+  }
 }
 
 export function each<T>(visitorFn: (v: T) => any) {
-  return function (enumerableObj, implClass?) {
-    return Enumerable.for(enumerableObj, implClass).each(visitorFn);
+  return function (enumerableVal, implClass?) {
+    return Enumerable.for(enumerableVal, implClass).each(visitorFn);
   };
 }

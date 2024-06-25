@@ -134,12 +134,23 @@ class Pipe {
   }
 
   waitAll() {
-    this.value = Promise.all(this.value);
+    this.value = Promise.allSettled(this.value).then((results) => {
+      return results.map((result) => {
+        if (result.status === "fulfilled") {
+          return result.value;
+        } else {
+          return new Error(result.reason);
+        }
+      });
+    });
+    // .finally(() => {
+    //   console.log("Experiment completed");
+    // });
     return this;
   }
 }
 
-export const P = function (initial: any) {
+export const VP = function (initial: any) {
   return new Pipe(initial);
 };
 

@@ -22,8 +22,8 @@ export class Mappable<S, T, U> extends Protocol {
 }
 
 export function map<T, U>(mapFn: (v: T) => U) {
-  return function (mappableObj, implClass?) {
-    return Mappable.for(mappableObj, implClass).map(mapFn);
+  return function (mappableVal, implClass?) {
+    return Mappable.for(mappableVal, implClass).map(mapFn);
   };
 }
 
@@ -38,7 +38,7 @@ export class AsyncMappable<S, T, U> extends Protocol {
 }
 
 export function asyncMap<T, U>(mapFn: (v: T) => Promise<U>) {
-  return async function (mappableObj, implClass?) {
-    return await AsyncMappable.for(mappableObj, implClass).map(mapFn);
+  return async function (mappableVal, implClass?) {
+    return await AsyncMappable.for(mappableVal, implClass).map(mapFn);
   };
 }

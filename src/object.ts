@@ -1,5 +1,4 @@
 import { buildPipeThroughFunction } from "./function";
-import { Selectable } from "./selectable";
 
 export function each<V>(eachFn: (pair: [string, V]) => void) {
   return function (object: { [s: string]: V; }): void {
@@ -63,11 +62,4 @@ Object.assign(_O, {
 
 export const O = _O;
 
-// protocols
-
-class SelectableObject<V> extends Selectable<object, [string, V]> {
-  select(predFn: (v: [string, V]) => boolean): object {
-    return O(this.self).select(predFn);
-  }
-}
-await Selectable.register(Object, SelectableObject, true);
+import "./all-protocols"

@@ -2,9 +2,10 @@ import { A } from "./array";
 import { F } from "./function";
 import { M } from "./map";
 import { O } from "./object";
-import { P } from "./pipe";
+import { VP } from "./pipe";
 import { S } from "./set";
 import { V, isA, isClass } from "./type";
+import "./all-protocols";
 
 export const Perc = {
   a: A,
@@ -13,7 +14,7 @@ export const Perc = {
   isClass,
   m: M,
   o: O,
-  pipe: P,
+  pipe: VP,
   s: S,
-  v: V
+  v: V,
 };
