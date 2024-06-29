@@ -27,7 +27,7 @@ export function each<T>(eachFn: (value: T) => void) {
   };
 }
 
-export function first<T>(predicateFn: (v: T) => any) {
+export function find<T>(predicateFn: (v: T) => any) {
   return function (arr: Array<T>): T | undefined {
     for (const val of arr) {
       if (predicateFn(val)) {
@@ -38,6 +38,13 @@ export function first<T>(predicateFn: (v: T) => any) {
   };
 }
 
+// returns the first n elements
+export function first<T>(n: number) {
+  return function (arr: T[]): T[] {
+    return arr.slice(0, n);
+  };
+}
+
 export function isEmpty<T>(arr: Array<T>): boolean {
   return arr.length === 0;
 }
@@ -45,6 +52,13 @@ export function isEmpty<T>(arr: Array<T>): boolean {
 export function join(separator?: string) {
   return function <T>(arr: T[]): string {
     return arr.join(separator);
+  };
+}
+
+// returns the last n elements
+export function last<T>(n: number) {
+  return function (arr: T[]): T[] {
+    return arr.slice(arr.length - n, arr.length);
   };
 }
 
@@ -131,4 +145,4 @@ Object.assign(A, {
   zip,
 });
 
-import "./all-protocols"
+import "./all-protocols";
