@@ -27,7 +27,7 @@
     "@release-it/bumper": "^6.0.1",
     "@types/bun": "latest",
     "@types/object-inspect": "^1.13.0",
-    "release-it": "^17.3.0",
+    "release-it": "^17.4.0",
     "tsup": "^8.1.0",
     "typescript": "latest"
   },
