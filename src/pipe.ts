@@ -7,6 +7,7 @@ import { asyncMap, map } from "./mappable";
 import { O } from "./object";
 import { select } from "./selectable";
 import { S } from "./set";
+import { Str } from "./string";
 import { V } from "./type";
 
 class Pipe {
@@ -27,11 +28,7 @@ class Pipe {
         // and assigns the result of the evaluation of that function property to the `this.value` member of the Pipe object
         const fn = Reflect.get(target, property, receiver);
         if (fn === undefined) {
-          throw Error(
-            `${nameOfMethodBag} does not have a method named ${String(
-              property
-            )}`
-          );
+          throw Error(`${nameOfMethodBag} does not have a method named ${String(property)}`);
         }
         // we return a function that wraps the function property that is being accessed, such that when invoked, the return value is
         // assigned to self.value and then the pipe object is returned
@@ -121,6 +118,14 @@ class Pipe {
 
   get s() {
     return this.convertMethodsToPipeline(S(this.value), "S");
+  }
+
+  get Str() {
+    return Str(this.value);
+  }
+
+  get str() {
+    return this.convertMethodsToPipeline(Str(this.value), "Str");
   }
 
   select(predFn, implClass?) {

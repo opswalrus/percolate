@@ -80,6 +80,26 @@ export function select<T>(predFn: (e: T) => boolean) {
   };
 }
 
+// returns the trailing elements of the array except for the leading n elements
+export function skipFirst<T>(n: number) {
+  return function (arr: T[]): T[] {
+    if (n > arr.length) {
+      n = arr.length;
+    }
+    return arr.slice(n, arr.length);
+  };
+}
+
+// returns the leading elements of the array except for the trailing n elements
+export function skipLast<T>(n: number) {
+  return function (arr: T[]): T[] {
+    if (n > arr.length) {
+      n = arr.length;
+    }
+    return arr.slice(0, arr.length - n);
+  }
+}
+
 export function toSet(arr: Array<any>) {
   return new Set(arr);
 }
@@ -133,12 +153,16 @@ Object.assign(A, {
   concat,
   each,
   filter: select,
+  find,
   first,
   isEmpty,
   join,
+  last,
   map,
   nth,
   select,
+  skipFirst,
+  skipLast,
   toSet,
   uniq,
   uniqBy,

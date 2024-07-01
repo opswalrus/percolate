@@ -25,18 +25,13 @@ export function isA(predicateType) {
     return (
       value instanceof predicateType ||
       kind(value) === predicateType ||
-      (value != null &&
-        (value.constructor === predicateType ||
-          (predicateType.name === "Object" && typeof value === "object")))
+      (value != null && (value.constructor === predicateType || (predicateType.name === "Object" && typeof value === "object")))
     );
   };
 }
 
 export function isClass(fn: any): boolean {
-  return (
-    typeof fn === "function" &&
-    /^class\s/.test(Function.prototype.toString.call(fn))
-  );
+  return typeof fn === "function" && /^class\s/.test(Function.prototype.toString.call(fn));
 }
 
 // returns Null | Undefined | Boolean | Number | BigInt | String | Symbol | Function | Class | class object
@@ -93,6 +88,10 @@ class Value<T> {
     return isA(predicateType)(this.value);
   }
 
+  isClass(value: unknown) {
+    isClass(value);
+  }
+
   isError(value: unknown): value is Error {
     return isError(value);
   }
@@ -120,6 +119,7 @@ export const V = function <T>(value: T): Value<T> {
 
 Object.assign(V, {
   isA,
+  isClass,
   inspect,
   kind,
   klass,

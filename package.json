@@ -47,6 +47,7 @@
       "src/protocol.ts",
       "src/selectable.ts",
       "src/set.ts",
+      "src/string.ts",
       "src/type.ts"
     ],
     "splitting": false,
@@ -102,6 +103,9 @@
     },
     "./set": {
       "import": "./dist/set.mjs"
+    },
+    "./string": {
+      "import": "./dist/string.mjs"
     },
     "./type": {
       "import": "./dist/type.mjs"

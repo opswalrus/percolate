@@ -16,6 +16,7 @@
     "./protocol": "./src/protocol.ts",
     "./selectable": "./src/selectable.ts",
     "./set": "./src/set.ts",
+    "./string": "./src/string.ts",
     "./type": "./src/type.ts"
   }
 }
