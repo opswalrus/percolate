@@ -30,8 +30,16 @@ export function isA(predicateType) {
   };
 }
 
+export function isAbsent(value: any): boolean {
+  return value == null || value == undefined;
+}
+
 export function isClass(fn: any): boolean {
   return typeof fn === "function" && /^class\s/.test(Function.prototype.toString.call(fn));
+}
+
+export function isPresent(value: any): boolean {
+  return !isAbsent(value);
 }
 
 // returns Null | Undefined | Boolean | Number | BigInt | String | Symbol | Function | Class | class object
@@ -88,8 +96,16 @@ class Value<T> {
     return isA(predicateType)(this.value);
   }
 
+  isAbsent(value: any) {
+    return isAbsent(value);
+  }
+
   isClass(value: unknown) {
     isClass(value);
+  }
+
+  isPresent(value: any) {
+    return isPresent(value);
   }
 
   isError(value: unknown): value is Error {
@@ -119,7 +135,9 @@ export const V = function <T>(value: T): Value<T> {
 
 Object.assign(V, {
   isA,
+  isAbsent,
   isClass,
+  isPresent,
   inspect,
   kind,
   klass,

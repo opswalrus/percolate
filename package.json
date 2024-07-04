@@ -36,6 +36,7 @@
       "src/mappable.ts",
       "src/object.ts",
       "src/pipe.ts",
+      "src/platform.ts",
       "src/protocol.ts",
       "src/selectable.ts",
       "src/set.ts",
@@ -86,6 +87,9 @@
     },
     "./pipe": {
       "import": "./dist/pipe.mjs"
+    },
+    "./platform": {
+      "import": "./dist/platform.mjs"
     },
     "./protocol": {
       "import": "./dist/protocol.mjs"
