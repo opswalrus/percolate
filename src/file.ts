@@ -1,5 +1,5 @@
-import type { PathLike } from "fs";
-import { readFile } from "fs/promises";
+import type { PathLike } from "node:fs";
+import { readFile } from "node:fs/promises";
 import { existsSync, readFileSync } from "node:fs";
 import { win32, posix } from "node:path";
 import { isWindows } from "./platform";
