@@ -34,4 +34,12 @@ export class File {
       return posix.basename(path, suffix);
     }
   }
+
+  static join(...paths: string[]): string {
+    if (isWindows()) {
+      return win32.join(...paths);
+    } else {
+      return posix.join(...paths);
+    }
+  }
 }
