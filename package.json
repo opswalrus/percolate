@@ -1,6 +1,6 @@
 {
   "name": "@opswalrus/percolate",
-  "version": "0.4.24",
+  "version": "0.4.25",
   "description": "A typescript implementation of protocols (typeclasses)",
   "repository": {
     "type": "git",
