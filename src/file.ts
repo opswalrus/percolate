@@ -9,20 +9,12 @@ export function exists(path: PathLike): boolean {
 }
 
 export class File {
-  static exists(path: PathLike): boolean {
-    return exists(path);
-  }
-
-  static readSync(path: PathLike): string {
-    return readFileSync(path, {
-      encoding: "utf8",
-    });
-  }
-
-  static async readAsync(path: PathLike): Promise<string> {
-    return await readFile(path, {
-      encoding: "utf8",
-    });
+  static absolutePath(...paths: string[]): string {
+    if (isWindows()) {
+      return win32.resolve(...paths);
+    } else {
+      return posix.resolve(...paths);
+    }
   }
 
   // basename("c:\\foo\\bar\\baz.txt") => "baz.txt"
@@ -35,11 +27,27 @@ export class File {
     }
   }
 
+  static exists(path: PathLike): boolean {
+    return exists(path);
+  }
+
   static join(...paths: string[]): string {
     if (isWindows()) {
       return win32.join(...paths);
     } else {
       return posix.join(...paths);
     }
+  }
+
+  static readSync(path: PathLike): string {
+    return readFileSync(path, {
+      encoding: "utf8",
+    });
+  }
+
+  static async readAsync(path: PathLike): Promise<string> {
+    return await readFile(path, {
+      encoding: "utf8",
+    });
   }
 }
