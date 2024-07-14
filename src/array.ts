@@ -45,6 +45,10 @@ export function first<T>(n: number) {
   };
 }
 
+export function head<T>(arr: T[]): T | undefined {
+  return arr[0];
+}
+
 export function isEmpty<T>(arr: Array<T>): boolean {
   return arr.length === 0;
 }
@@ -155,6 +159,7 @@ Object.assign(A, {
   filter: select,
   find,
   first,
+  head,
   isEmpty,
   join,
   last,
