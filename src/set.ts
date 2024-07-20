@@ -1,5 +1,5 @@
 import { Enumerable } from "./enumerable";
-import { buildPipeThroughFunction } from "./function";
+import { buildWrapperProxy } from "./function";
 
 export function addAll(enumerableVal) {
   // console.log(`------------- addAll: ${V(enumerableVal).inspect()}`)
@@ -65,9 +65,24 @@ export function union(enumerableVal) {
   };
 }
 
-export const S = buildPipeThroughFunction();
+// export const S = buildPipeThroughFunction();
 
-Object.assign(S, {
+// Object.assign(S, {
+//   addAll,
+//   each,
+//   intersection,
+//   isEmpty,
+//   isSubsetOf,
+//   isSupersetOf,
+//   map,
+//   toArray,
+//   union,
+// });
+
+export const S = buildWrapperProxy();
+S.registerUncurriedFns({ isEmpty, toArray });
+S.registerCurriedFns({ addAll, each, intersection, isSubsetOf, isSupersetOf, map, union });
+S.registerStatic({
   addAll,
   each,
   intersection,
@@ -79,4 +94,4 @@ Object.assign(S, {
   union,
 });
 
-import "./all-protocols"
+import "./all-protocols";

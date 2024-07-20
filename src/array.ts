@@ -1,4 +1,4 @@
-import { buildPipeThroughFunction, identity } from "./function";
+import { buildWrapperProxy, identity } from "./function";
 
 export function compact(omit: any[] = [null, undefined]) {
   return function (arr: any[]): any {
@@ -101,7 +101,7 @@ export function skipLast<T>(n: number) {
       n = arr.length;
     }
     return arr.slice(0, arr.length - n);
-  }
+  };
 }
 
 export function toSet(arr: Array<any>) {
@@ -150,9 +150,11 @@ export function zip<T, U>(other: Array<U>) {
 //   uniqBy,
 // };
 
-export const A = buildPipeThroughFunction();
+export const A = buildWrapperProxy();
 
-Object.assign(A, {
+A.registerUncurriedFns({ head, isEmpty, toSet, uniq });
+A.registerCurriedFns({ compact, concat, each, filter: select, find, first, join, last, map, nth, select, skipFirst, skipLast, uniqBy, zip });
+A.registerStatic({
   compact,
   concat,
   each,

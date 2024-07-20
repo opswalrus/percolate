@@ -1,4 +1,4 @@
-import { buildPipeThroughFunction } from "./function";
+import { buildWrapperProxy } from "./function";
 
 export function each<K, V>(eachFn: (pair: [K, V]) => void) {
   return function (map: Map<K, V>): void {
@@ -60,9 +60,22 @@ export function values<K, V>(map: Map<K, V>): V[] {
   return Array.from(map.values());
 }
 
-export const M = buildPipeThroughFunction();
+// export const M = buildPipeThroughFunction();
 
-Object.assign(M, {
+// Object.assign(M, {
+//   each,
+//   isEmpty,
+//   keys,
+//   map,
+//   select,
+//   toObject,
+//   values,
+// });
+
+export const M = buildWrapperProxy();
+M.registerUncurriedFns({ isEmpty, keys, toObject, values });
+M.registerCurriedFns({ each, map, select });
+M.registerStatic({
   each,
   isEmpty,
   keys,
@@ -72,4 +85,4 @@ Object.assign(M, {
   values,
 });
 
-import "./all-protocols"
+import "./all-protocols";
