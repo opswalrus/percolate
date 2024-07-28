@@ -5,6 +5,7 @@
     ".": "./src/index.ts",
     "./array": "./src/array.ts",
     "./compactable": "./src/compactable.ts",
+    "./dir": "./src/dir.ts",
     "./enumerable": "./src/enumerable.ts",
     "./enumerator": "./src/enumerator.ts",
     "./file": "./src/file.ts",

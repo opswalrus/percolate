@@ -27,6 +27,7 @@
     "entry": [
       "src/array.ts",
       "src/compactable.ts",
+      "src/dir.ts",
       "src/enumerable.ts",
       "src/enumerator.ts",
       "src/file.ts",
@@ -63,6 +64,9 @@
     },
     "./compactable": {
       "import": "./dist/compactable.mjs"
+    },
+    "./dir": {
+      "import": "./dist/dir.mjs"
     },
     "./enumerable": {
       "import": "./dist/enumerable.mjs"
