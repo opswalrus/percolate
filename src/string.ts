@@ -65,6 +65,20 @@ export class StringProxy {
   matches(regexp: RegExp) {
     return matches(regexp)(this.str);
   }
+
+  trimPrefix(prefix: string): string {
+    if (this.str.startsWith(prefix)) {
+      return this.str.slice(prefix.length)
+    }
+    return this.str;
+  }
+
+  trimSuffix(suffix: string): string {
+    if (this.str.endsWith(suffix)) {
+      return this.str.slice(0, this.str.length - suffix.length);
+    }
+    return this.str;
+  }
 }
 
 export const Str = function (str: string): StringProxy {
