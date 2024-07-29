@@ -30,6 +30,7 @@
       "src/dir.ts",
       "src/enumerable.ts",
       "src/enumerator.ts",
+      "src/equal.ts",
       "src/file.ts",
       "src/function.ts",
       "src/index.ts",
@@ -74,6 +75,9 @@
     },
     "./enumerator": {
       "import": "./dist/enumerator.mjs"
+    },
+    "./equal": {
+      "import": "./dist/equal.mjs"
     },
     "./file": {
       "import": "./dist/file.mjs"
@@ -125,6 +129,7 @@
     "typescript": "latest"
   },
   "dependencies": {
-    "async-mutex": "^0.5.0"
+    "async-mutex": "^0.5.0",
+    "glob": "^11.0.0"
   }
 }

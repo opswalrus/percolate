@@ -14,6 +14,10 @@ export class Range {
     }
   }
 
+  equals(other: Range) {
+    return this.start === other.start && this.end === other.end && this.inclusive === other.inclusive;
+  }
+
   map<T>(mapFn: (num: number) => T): T[] {
     const arr: T[] = [];
     this.each((num) => {

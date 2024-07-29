@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { Path } from "./path";
+import { equal, Equal } from "./equal";
 
 describe("Path", () => {
   it("derives absolute path", () => {
@@ -49,6 +50,16 @@ describe("Path", () => {
 
     expect(readme.directoryTree()).toEqual(["foo", "bar"]);
     expect(readme.directoryTree()).toEqual(parent.absolute().split());
+  });
+
+  it("searches the directory for filename patterns", () => {
+    let srcDir = Path.new(__dirname, false);
+    let projectDir = srcDir.parent();
+
+    expect(projectDir.glob("README*")).toEqual([Path.new("README.md")]);
+    expect(projectDir.glob("README*").map((p) => p.absolute())).toEqual([projectDir.join("README.md")]);
+
+    expect(projectDir.glob("NOTFOUND")).toEqual([]);
   });
 
   it("pops off the leaf directory of absolute path", () => {
@@ -109,5 +120,15 @@ describe("Path", () => {
 
     path = Path.new("C:\\foo\\bar\\baz.txt", true);
     expect(path.split()).toEqual(["foo", "bar", "baz.txt"]);
+  });
+
+  it("implements Equal typeclass", () => {
+    let path1 = Path.new("foo/bar", false);
+    let path2 = Path.new("foo/bar", false);
+    expect(equal(path1, path2)).toBeTrue();
+
+    path1 = Path.new("foo/bar1", false);
+    path2 = Path.new("foo/bar", false);
+    expect(equal(path1, path2)).toBeFalse();
   });
 });

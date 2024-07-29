@@ -2,6 +2,7 @@ import { Range } from "./range";
 import { Enumerable } from "./enumerable";
 import { Mappable, AsyncMappable } from "./mappable";
 import { Selectable } from "./selectable";
+import { Equal } from "./equal";
 
 class MappableRange<T> extends Mappable<Range, number, T> {
   map(mapFn: (v: number) => T): T[] {
@@ -31,6 +32,13 @@ class EnumerableRange extends Enumerable<Range, number> {
   }
 }
 await Enumerable.register(Range, EnumerableRange, true);
+
+class EqualRange extends Equal<Range> {
+  equal(other: Range): boolean {
+    return this.self.equals(other);
+  }
+}
+await Equal.register(Range, EqualRange, true);
 
 class SelectableRange extends Selectable<Range, number> {
   select(predFn: (v: number) => boolean): number[] {

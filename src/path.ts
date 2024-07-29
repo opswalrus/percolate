@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { existsSync, readFileSync, lstatSync } from "node:fs";
 import { win32, posix } from "node:path";
 import type { ParsedPath } from "node:path";
+import { glob, globSync, globStream, globStreamSync, Glob } from "glob";
 import { isWindows } from "./platform";
 import { A } from "./array";
 import { Str } from "./string";
@@ -38,6 +39,10 @@ export class Path {
     return new Path(path, this.isWindowsPath);
   }
 
+  dirContains(filename: string): boolean {
+    return this.isDirectory() && this.glob(filename);
+  }
+
   // given a path like "bar/bas", this method converts the path to an absolute path (e.g. "/foo/bar/bas"),
   // and then returns the directory tree as an array of the form ["foo", "bar", "bas"]
   directoryTree(): string[] {
@@ -52,8 +57,17 @@ export class Path {
     }
   }
 
+  equals(other: Path) {
+    return this.path === other.path && this.isWindowsPath === other.isWindowsPath;
+  }
+
   exists(): boolean {
     return existsSync(this.path);
+  }
+
+  glob(pattern: string) {
+    const cwd = this.absolute().toString();
+    return globSync(pattern, { cwd }).map((path) => this.build(path));
   }
 
   isAbsolute(): boolean {
@@ -86,6 +100,14 @@ export class Path {
     } else {
       return this.build(posix.normalize(this.path));
     }
+  }
+
+  parent(count: number = 1) {
+    let path = this.absolute();
+    Range.new(1, count).each((i) => {
+      path = path.resolve("..");
+    });
+    return path;
   }
 
   // returns an object of the form: { root, dir, base, ext, name }
@@ -128,11 +150,7 @@ export class Path {
   }
 
   pop(count: number = 1): Path {
-    let path = this.absolute();
-    Range.new(1, count).each((i) => {
-      path = path.resolve("..");
-    });
-    return path;
+    return this.parent(count);
   }
 
   relative(to: string): Path {

@@ -8,6 +8,7 @@
     "./dir": "./src/dir.ts",
     "./enumerable": "./src/enumerable.ts",
     "./enumerator": "./src/enumerator.ts",
+    "./equal": "./src/equal.ts",
     "./file": "./src/file.ts",
     "./function": "./src/function.ts",
     "./map": "./src/map.ts",
