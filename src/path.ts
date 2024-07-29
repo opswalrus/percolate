@@ -5,6 +5,7 @@ import type { ParsedPath } from "node:path";
 import { isWindows } from "./platform";
 import { A } from "./array";
 import { Str } from "./string";
+import { Range } from "./range";
 
 export class Path {
   static new(path: string, isWindowsPath: boolean = isWindows()): Path {
@@ -126,6 +127,14 @@ export class Path {
     }
   }
 
+  pop(count: number = 1): Path {
+    let path = this.absolute();
+    Range.new(1, count).each((i) => {
+      path = path.resolve("..");
+    });
+    return path;
+  }
+
   relative(to: string): Path {
     if (this.isWindowsPath) {
       return this.build(win32.relative(this.path, to));
@@ -140,6 +149,11 @@ export class Path {
     } else {
       return this.build(posix.resolve(this.path, ...paths));
     }
+  }
+
+  root(): Path {
+    const { root } = this.parse();
+    return this.build(root);
   }
 
   // returns the parts of the path, excluding the root if applicable
