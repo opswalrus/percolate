@@ -36,6 +36,7 @@
       "src/map.ts",
       "src/mappable.ts",
       "src/object.ts",
+      "src/path.ts",
       "src/pipe.ts",
       "src/platform.ts",
       "src/protocol.ts",
@@ -88,6 +89,9 @@
     },
     "./object": {
       "import": "./dist/object.mjs"
+    },
+    "./path": {
+      "import": "./dist/path.mjs"
     },
     "./pipe": {
       "import": "./dist/pipe.mjs"

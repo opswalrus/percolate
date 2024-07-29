@@ -13,6 +13,7 @@
     "./map": "./src/map.ts",
     "./mappable": "./src/mappable.ts",
     "./object": "./src/object.ts",
+    "./path": "./src/path.ts",
     "./pipe": "./src/pipe.ts",
     "./protocol": "./src/protocol.ts",
     "./selectable": "./src/selectable.ts",

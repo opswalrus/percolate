@@ -1,4 +1,6 @@
 import type { PathLike } from "node:fs";
+import { readFile } from "node:fs/promises";
+import { existsSync, readFileSync, lstatSync } from "node:fs";
 import { win32, posix } from "node:path";
 import { isWindows } from "./platform";
 import { File } from "./file";
@@ -11,11 +13,8 @@ export class Dir {
     return Dir.split(absPath);
   }
 
-  static split(path: string): string[] {
-    if (isWindows()) {
-      return path.split(win32.sep);
-    } else {
-      return path.split(posix.sep);
-    }
+  // returns true if the given path is a directory
+  static exists(path: string) {
+    return File.exists(path) && lstatSync(path).isDirectory();
   }
 }
