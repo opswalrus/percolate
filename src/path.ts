@@ -40,7 +40,7 @@ export class Path {
   }
 
   dirContains(filename: string): boolean {
-    return this.isDirectory() && this.glob(filename);
+    return this.isDirectory() && this.glob(filename).length > 0;
   }
 
   // given a path like "bar/bas", this method converts the path to an absolute path (e.g. "/foo/bar/bas"),
@@ -84,6 +84,10 @@ export class Path {
 
   isFile(): boolean {
     return this.exists() && lstatSync(this.path).isFile();
+  }
+
+  isRoot(): boolean {
+    return this.parse().root === this.normalize().toString();
   }
 
   join(...paths: string[]): Path {

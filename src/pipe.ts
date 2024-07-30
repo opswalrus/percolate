@@ -17,7 +17,7 @@ class Pipe {
   // returns a function that proxies method invocations through to the A([1,2,3]) object but assigns their return value
   // to this.value in the pipeline, and then returns the pipe object, enabling stuff like this:
   // P([1,2,3]).A.compact().A.first().value
-  private convertMethodsToPipeline(wrappedValue, nameOfMethodBag: string) {
+  _convertMethodsToPipeline(wrappedValue, nameOfMethodBag: string) {
     const self = this;
 
     return new Proxy(wrappedValue, {
@@ -45,7 +45,7 @@ class Pipe {
   }
 
   get a() {
-    return this.convertMethodsToPipeline(A(this.value), "A");
+    return this._convertMethodsToPipeline(A(this.value), "A");
   }
 
   compact(...args) {
@@ -63,7 +63,7 @@ class Pipe {
   }
 
   get f() {
-    return this.convertMethodsToPipeline(F(this.value), "F");
+    return this._convertMethodsToPipeline(F(this.value), "F");
   }
 
   // enumerable() {
@@ -86,7 +86,7 @@ class Pipe {
   }
 
   get m() {
-    return this.convertMethodsToPipeline(M(this.value), "M");
+    return this._convertMethodsToPipeline(M(this.value), "M");
   }
 
   map(mapFn, implClass?) {
@@ -104,7 +104,7 @@ class Pipe {
   }
 
   get o() {
-    return this.convertMethodsToPipeline(O(this.value), "O");
+    return this._convertMethodsToPipeline(O(this.value), "O");
   }
 
   pipe(fn) {
@@ -117,7 +117,7 @@ class Pipe {
   }
 
   get s() {
-    return this.convertMethodsToPipeline(S(this.value), "S");
+    return this._convertMethodsToPipeline(S(this.value), "S");
   }
 
   get Str() {
@@ -125,7 +125,7 @@ class Pipe {
   }
 
   get str() {
-    return this.convertMethodsToPipeline(Str(this.value), "Str");
+    return this._convertMethodsToPipeline(Str(this.value), "Str");
   }
 
   select(predFn, implClass?) {

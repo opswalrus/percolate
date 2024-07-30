@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/opswalrus/percolate#readme",
   "scripts": {
-    "build": "tsup",
+    "build-deprecated": "tsup",
+    "build": "rollup -c",
     "release": "release-it",
     "test": "bun test"
   },
@@ -59,72 +60,95 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
     },
     "./array": {
-      "import": "./dist/array.mjs"
+      "import": "./dist/array.mjs",
+      "types": "./dist/array.d.ts"
     },
     "./compactable": {
-      "import": "./dist/compactable.mjs"
+      "import": "./dist/compactable.mjs",
+      "types": "./dist/compactable.d.ts"
     },
     "./dir": {
-      "import": "./dist/dir.mjs"
+      "import": "./dist/dir.mjs",
+      "types": "./dist/dir.d.ts"
     },
     "./enumerable": {
-      "import": "./dist/enumerable.mjs"
+      "import": "./dist/enumerable.mjs",
+      "types": "./dist/enumerable.d.ts"
     },
     "./enumerator": {
-      "import": "./dist/enumerator.mjs"
+      "import": "./dist/enumerator.mjs",
+      "types": "./dist/enumerator.d.ts"
     },
     "./equal": {
-      "import": "./dist/equal.mjs"
+      "import": "./dist/equal.mjs",
+      "types": "./dist/equal.d.ts"
     },
     "./file": {
-      "import": "./dist/file.mjs"
+      "import": "./dist/file.mjs",
+      "types": "./dist/file.d.ts"
     },
     "./function": {
-      "import": "./dist/function.mjs"
+      "import": "./dist/function.mjs",
+      "types": "./dist/function.d.ts"
     },
     "./map": {
-      "import": "./dist/map.mjs"
+      "import": "./dist/map.mjs",
+      "types": "./dist/map.d.ts"
     },
     "./mappable": {
-      "import": "./dist/mappable.mjs"
+      "import": "./dist/mappable.mjs",
+      "types": "./dist/mappable.d.ts"
     },
     "./object": {
-      "import": "./dist/object.mjs"
+      "import": "./dist/object.mjs",
+      "types": "./dist/object.d.ts"
     },
     "./path": {
-      "import": "./dist/path.mjs"
+      "import": "./dist/path.mjs",
+      "types": "./dist/path.d.ts"
     },
     "./pipe": {
-      "import": "./dist/pipe.mjs"
+      "import": "./dist/pipe.mjs",
+      "types": "./dist/pipe.d.ts"
     },
     "./platform": {
-      "import": "./dist/platform.mjs"
+      "import": "./dist/platform.mjs",
+      "types": "./dist/platform.d.ts"
     },
     "./protocol": {
-      "import": "./dist/protocol.mjs"
+      "import": "./dist/protocol.mjs",
+      "types": "./dist/protocol.d.ts"
     },
     "./selectable": {
-      "import": "./dist/selectable.mjs"
+      "import": "./dist/selectable.mjs",
+      "types": "./dist/selectable.d.ts"
     },
     "./set": {
-      "import": "./dist/set.mjs"
+      "import": "./dist/set.mjs",
+      "types": "./dist/set.d.ts"
     },
     "./string": {
-      "import": "./dist/string.mjs"
+      "import": "./dist/string.mjs",
+      "types": "./dist/string.d.ts"
     },
     "./type": {
-      "import": "./dist/type.mjs"
+      "import": "./dist/type.mjs",
+      "types": "./dist/type.d.ts"
     }
   },
-  "main": "./dist/index.js",
+  "main": "./dist/index.mjs",
+  "type": "module",
   "devDependencies": {
     "@release-it/bumper": "^6.0.1",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@types/bun": "latest",
     "@types/object-inspect": "^1.13.0",
     "release-it": "^17.6.0",
+    "rollup": "^4.19.1",
     "tsup": "^8.2.3",
     "typescript": "latest"
   },

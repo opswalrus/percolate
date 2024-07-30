@@ -22,6 +22,14 @@
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
-  }
+    "noPropertyAccessFromIndexSignature": false,
+
+    // part of rollup config
+    "declaration": true,
+    "declarationDir": "./dist"
+  },
+
+  // part of rollup config
+  "include": ["src"],
+  "exclude": ["src/*.spec.ts"]
 }
